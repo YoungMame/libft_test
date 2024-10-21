@@ -165,7 +165,7 @@ int	main(int argc, char **argv)
 	int		test_int = 10;
 	char	*test_string = "heyheyheyyyehHello World!eeehey";
 	char	*test_string_2 = "hey";
-	size_t test_size = 2 * sizeof(char);
+	size_t test_size = 100 * sizeof(char);
 	size_t string_arg_size = 5 * sizeof(char);
 	unsigned char	*string_arg = malloc(string_arg_size);
 	ft_memset(string_arg, test_char, string_arg_size);
@@ -226,7 +226,25 @@ int	main(int argc, char **argv)
 	{
 		printf("ft_strtrim(\"%s\", \"%s\") = \"%s\"\n", test_string, test_string_2, ft_strtrim(test_string, test_string_2));
 	}
-
+	else if (ft_strncmp(argv[1], "split", 100) == 0)
+	{
+		char	**result = ft_split(test_string, test_char);
+		int i = 0;
+		printf("ft_split(\"%s\", \'%c\') = \n", test_string, test_char);
+		while(result[i])
+			printf("\"%s\"\n", result[i++]);	
+	}
+	else if (ft_strncmp(argv[1], "strnstr", 100) == 0)
+	{
+		printf("ft_strnstr(\"%s\", \"%s\", %zu) = \"%s\"\n", test_string, test_string_2, test_size, ft_strnstr(test_string, test_string_2, test_size));
+	}
+	else if (ft_strncmp(argv[1], "lstnew", 100) == 0)
+	{
+		printf("using value = ft_lstnew(\"%s\")\n", test_string);
+		t_list *value = ft_lstnew(test_string);
+		printf("value.content = \"%s\"\n", value->content);
+		printf("value.next = %p\n", value->next);
+	}
 	else
 	{
 		printf("No test available for this function");
