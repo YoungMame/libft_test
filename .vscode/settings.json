@@ -2,6 +2,7 @@
 	"files.associations": {
 		"functional": "c",
 		"__locale": "c",
-		"sstream": "c"
+		"sstream": "c",
+		"random": "c"
 	}
 }

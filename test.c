@@ -25,6 +25,174 @@ void set_c(unsigned int i, char *c)
 	c[i] = 'c';
 }
 
+void	clear_string(void *str)
+{
+	if (str)
+		free(str);
+	return ;
+}
+
+int	main(int argc, char **argv)
+{
+	char	test_char = 'e';
+	int		test_int = 2147483647;
+	char	*test_string = ft_strdup("amet");
+	char	*test_string_2 = ft_strdup("te");
+	size_t test_size = 100 * sizeof(char);
+	size_t string_arg_size = 5 * sizeof(char);
+	unsigned char	*string_arg = malloc(string_arg_size);
+	ft_memset(string_arg, test_char, string_arg_size);
+	printf("\nLIBFT TEST :)\n\n");
+	if (argc < 2)
+	{
+		return (0);
+		printf("!! YOU NEED TO INDIQUER LE NOM DE LA FUNCTION TO TEST BILOUTE !!");
+	}
+	if (ft_strncmp(argv[1], "memset", 100) == 0)
+	{
+		printf("%s", string_arg);
+	}
+	else if (ft_strncmp(argv[1], "bzero", 100) == 0)
+	{
+		printf("using ft_bzero(\"%s\", %zu)\n", string_arg, string_arg_size);
+		ft_bzero(string_arg, string_arg_size);
+		printf("new value = \"%s\"\n", string_arg);
+		printf("length of the new value = %i\n", ft_strlen((const char *)string_arg));
+	}
+	else if (ft_strncmp(argv[1], "isalnum", 100) == 0)
+	{
+		printf("ft_isalnum(\"%c\") = %d\n",test_char, ft_isalnum(test_char));
+	}
+	else if (ft_strncmp(argv[1], "isalpha", 100) == 0)
+	{
+		printf("ft_isalpha(\"%c\") = %d\n",test_char, ft_isalpha(test_char));
+	}
+	else if (ft_strncmp(argv[1], "isascii", 100) == 0)
+	{
+		printf("ft_isascii(\"%c\") = %d\n",test_char, ft_isascii(test_char));
+	}
+	else if (ft_strncmp(argv[1], "isprint", 100) == 0)
+	{
+		printf("ft_isprint(\"%c\") = %d\n",test_char, ft_isprint(test_char));
+	}
+	else if (ft_strncmp(argv[1], "isdigit", 100) == 0)
+	{
+		printf("ft_isdigit(\"%c\") = %d\n",test_char, ft_isdigit(test_char));
+	}
+	else if (ft_strncmp(argv[1], "itoa", 100) == 0)
+	{
+		printf("ft_itoa(%i) = \"%s\"\n",test_int, ft_itoa(test_int));
+	}
+	else if (ft_strncmp(argv[1], "atoi", 100) == 0)
+	{
+		printf("ft_atoi(\"%s\") = %i\n", test_string, ft_atoi(test_string));
+	}
+	else if (ft_strncmp(argv[1], "substr", 100) == 0)
+	{
+		printf("ft_substr(\"%s\", %i, %zu) = %s\n", test_string, test_int, test_size, ft_substr(test_string, test_int, test_size));
+	}
+	else if (ft_strncmp(argv[1], "strchr", 100) == 0)
+	{
+		printf("ft_strchr(%s, %c) = %s\n", test_string, test_char, ft_strchr(test_string, test_char));
+	}
+	else if (ft_strncmp(argv[1], "strtrim", 100) == 0)
+	{
+		printf("ft_strtrim(\"%s\", \"%s\") = \"%s\"\n", test_string, test_string_2, ft_strtrim(test_string, test_string_2));
+	}
+	else if (ft_strncmp(argv[1], "split", 100) == 0)
+	{
+		char	**result = ft_split(test_string, test_char);
+		int i = 0;
+		printf("ft_split(\"%s\", \'%c\') = \n", test_string, test_char);
+		while(result[i])
+			printf("\"%s\"\n", result[i++]);	
+	}
+	else if (ft_strncmp(argv[1], "strnstr", 100) == 0)
+	{
+		printf("ft_strnstr(\"%s\", \"%s\", %zu) = \"%s\"\n", test_string, test_string_2, test_size, ft_strnstr(test_string, test_string_2, test_size));
+	}
+	else if (ft_strncmp(argv[1], "lstnew", 100) == 0)
+	{
+		printf("using value = ft_lstnew(\"%s\")\n", test_string);
+		t_list *value = ft_lstnew(test_string);
+		printf("value->content = \"%s\"\n", (char *)value->content);
+		printf("value->next = %p\n", value->next);
+	}
+	else if (ft_strncmp(argv[1], "lstdadd_front", 100) == 0)
+	{
+		t_list *value = ft_lstnew(test_string);
+		t_list *value_2 = ft_lstnew(test_string_2);
+		printf("using ft_lstadd_front(%p, %p)\n", value, value_2);
+		ft_lstadd_front(&value, value_2);
+		printf("value_2->next = %p (doit etre %p\")\n", value_2->next, value);
+		printf("value_2->next->content (content of the deuxieme element donc value) = \"%s\"\n", (char *)value_2->next->content);
+	}
+	else if (ft_strncmp(argv[1], "lstsize", 100) == 0)
+	{
+		t_list *value = ft_lstnew(test_string);
+		t_list *value_2 = ft_lstnew(test_string_2);
+		ft_lstadd_front(&value, value_2);
+		printf("using ft_lstsize(%p) = %i (exepted 2)\n", value_2, ft_lstsize(value_2));
+	}
+	else if (ft_strncmp(argv[1], "lstlast", 100) == 0)
+	{
+		t_list *value = ft_lstnew(test_string);
+		t_list *value_2 = ft_lstnew(test_string_2);
+		ft_lstadd_front(&value, value_2);
+		printf("using ft_lstlast(%p) = %p (exepted %p)\n", value_2, ft_lstlast(value_2), value);
+	}
+	else if (ft_strncmp(argv[1], "lstadd_back", 100) == 0)
+	{
+		t_list *value = ft_lstnew(test_string);
+		t_list *value_2 = ft_lstnew(test_string_2);
+		printf("using ft_lstadd_back(%p, %p)\n", value, value_2);
+		ft_lstadd_back(&value, value_2);
+		printf("value->next = %p (doit etre %p\")\n", value->next, value_2);
+		printf("value->next->content (content of the deuxieme element donc value) = \"%s\"\n", (char *)value->next->content);
+	}
+	else if (ft_strncmp(argv[1], "lstdelone", 100) == 0)
+	{
+		t_list *value = ft_lstnew(test_string);
+		t_list *value_2 = ft_lstnew(test_string_2);
+		ft_lstadd_back(&value, value_2);
+		printf("value_2->content = \"%s\"\n", (char *)value_2->content);
+		ft_lstdelone(value_2, &clear_string);
+		printf("value_2->content after ft_lstdelone = \"%s\"\n", (char *)value_2->content);
+	}
+	else if (ft_strncmp(argv[1], "lstclear", 100) == 0)
+	{
+		t_list *value = ft_lstnew(test_string);
+		t_list *value_2 = ft_lstnew(test_string_2);
+		ft_lstadd_back(&value, value_2);
+		printf("value_2->content = \"%s\"\n", (char *)value_2->content);
+		ft_lstclear(&value, &clear_string);
+		printf("value_2->content after ft_lstclear = \"%s\"\n", (char *)value_2->content);
+	}
+	else
+	{
+		printf("No test available for this function");
+	}
+	free(string_arg);
+	printf("\nLIBFT TEST :)");
+	return (0);
+}
+
+// ## git clone git@github.com:YoungMame/libft_test.git
+
+// ## throw it in you makefile
+
+// test: fclean libft.a
+// 	cc -o myprogram.out ../libft_test/test.c -L ./ -l ft
+// 	./myprogram.out itoa
+
+
+
+
+
+
+
+
+
 // int	main()
 // {
 // 	int test_char = 'l';
@@ -157,107 +325,3 @@ void set_c(unsigned int i, char *c)
 // 	t_list value = *ft_lstnew(string);
 // 	printf("%s", value.content);
 // }
-
-
-int	main(int argc, char **argv)
-{
-	char	test_char = 'e';
-	int		test_int = 10;
-	char	*test_string = "heyheyheyyyehHello World!eeehey";
-	char	*test_string_2 = "hey";
-	size_t test_size = 100 * sizeof(char);
-	size_t string_arg_size = 5 * sizeof(char);
-	unsigned char	*string_arg = malloc(string_arg_size);
-	ft_memset(string_arg, test_char, string_arg_size);
-	printf("\nLIBFT TEST :)\n\n");
-	if (argc < 2)
-	{
-		return (0);
-		printf("!! YOU NEED TO INDIQUER LE NOM DE LA FUNCTION TO TEST BILOUTE !!");
-	}
-	if (ft_strncmp(argv[1], "memset", 100) == 0)
-	{
-		printf("%s", string_arg);
-	}
-	else if (ft_strncmp(argv[1], "bzero", 100) == 0)
-	{
-		printf("using ft_bzero(\"%s\", %zu)\n", string_arg, string_arg_size);
-		ft_bzero(string_arg, string_arg_size);
-		printf("new value = \"%s\"\n", string_arg);
-		printf("length of the new value = %i\n", ft_strlen(string_arg));
-	}
-	else if (ft_strncmp(argv[1], "isalnum", 100) == 0)
-	{
-		printf("ft_isalnum(\"%c\") = %d\n",test_char, ft_isalnum(test_char));
-	}
-	else if (ft_strncmp(argv[1], "isalpha", 100) == 0)
-	{
-		printf("ft_isalpha(\"%c\") = %d\n",test_char, ft_isalpha(test_char));
-	}
-	else if (ft_strncmp(argv[1], "isascii", 100) == 0)
-	{
-		printf("ft_isascii(\"%c\") = %d\n",test_char, ft_isascii(test_char));
-	}
-	else if (ft_strncmp(argv[1], "isprint", 100) == 0)
-	{
-		printf("ft_isprint(\"%c\") = %d\n",test_char, ft_isprint(test_char));
-	}
-	else if (ft_strncmp(argv[1], "isdigit", 100) == 0)
-	{
-		printf("ft_isdigit(\"%c\") = %d\n",test_char, ft_isdigit(test_char));
-	}
-	else if (ft_strncmp(argv[1], "itoa", 100) == 0)
-	{
-		printf("ft_itoa(%i) = \"%s\"\n",test_int, ft_itoa(test_int));
-	}
-	else if (ft_strncmp(argv[1], "atoi", 100) == 0)
-	{
-		printf("ft_atoi(\"%s\") = %i\n", test_string, ft_atoi(test_string));
-	}
-	else if (ft_strncmp(argv[1], "substr", 100) == 0)
-	{
-		printf("ft_substr(\"%s\", %i, %zu) = %s\n", test_string, test_int, test_size, ft_substr(test_string, test_int, test_size));
-	}
-	else if (ft_strncmp(argv[1], "strchr", 100) == 0)
-	{
-		printf("ft_strchr(%s, %c) = %s\n", test_string, test_char, ft_strchr(test_string, test_char));
-	}
-	else if (ft_strncmp(argv[1], "strtrim", 100) == 0)
-	{
-		printf("ft_strtrim(\"%s\", \"%s\") = \"%s\"\n", test_string, test_string_2, ft_strtrim(test_string, test_string_2));
-	}
-	else if (ft_strncmp(argv[1], "split", 100) == 0)
-	{
-		char	**result = ft_split(test_string, test_char);
-		int i = 0;
-		printf("ft_split(\"%s\", \'%c\') = \n", test_string, test_char);
-		while(result[i])
-			printf("\"%s\"\n", result[i++]);	
-	}
-	else if (ft_strncmp(argv[1], "strnstr", 100) == 0)
-	{
-		printf("ft_strnstr(\"%s\", \"%s\", %zu) = \"%s\"\n", test_string, test_string_2, test_size, ft_strnstr(test_string, test_string_2, test_size));
-	}
-	else if (ft_strncmp(argv[1], "lstnew", 100) == 0)
-	{
-		printf("using value = ft_lstnew(\"%s\")\n", test_string);
-		t_list *value = ft_lstnew(test_string);
-		printf("value.content = \"%s\"\n", value->content);
-		printf("value.next = %p\n", value->next);
-	}
-	else
-	{
-		printf("No test available for this function");
-	}
-	free(string_arg);
-	printf("\nLIBFT TEST :)");
-	return (0);
-}
-
-// ## git clone git@github.com:YoungMame/libft_test.git
-
-// ## throw it in you makefile
-
-// test: fclean libft.a
-// 	cc -o myprogram.out ../libft_test/test.c -L ./ -l ft
-// 	./myprogram.out itoa
