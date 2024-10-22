@@ -34,11 +34,11 @@ void	clear_string(void *str)
 
 int	main(int argc, char **argv)
 {
-	char	test_char = 'e';
-	int		test_int = 2147483647;
-	char	*test_string = ft_strdup("amet");
-	char	*test_string_2 = ft_strdup("te");
-	size_t test_size = 100 * sizeof(char);
+	char	test_char = 'd';
+	int		test_int = 1;
+	char	*test_string = ft_strdup("helloworld");
+	char	*test_string_2 = ft_strdup("e");
+	size_t test_size = 8 * sizeof(char);
 	size_t string_arg_size = 5 * sizeof(char);
 	unsigned char	*string_arg = malloc(string_arg_size);
 	ft_memset(string_arg, test_char, string_arg_size);
@@ -167,6 +167,14 @@ int	main(int argc, char **argv)
 		printf("value_2->content = \"%s\"\n", (char *)value_2->content);
 		ft_lstclear(&value, &clear_string);
 		printf("value_2->content after ft_lstclear = \"%s\"\n", (char *)value_2->content);
+	}
+	else if (ft_strncmp(argv[1], "strchr", 100) == 0)
+	{
+		printf("ft_strchr(%s, %c) = %s\n", test_string, test_char, ft_strchr(test_string, test_char));
+	}
+	else if (ft_strncmp(argv[1], "strrchr", 100) == 0)
+	{
+		printf("ft_strrchr(%s, %c) = %s\n", test_string, test_char, ft_strrchr(test_string, test_char));
 	}
 	else
 	{
